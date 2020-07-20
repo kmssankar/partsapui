@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <form (ngSubmit)="!registerForm.invalid && doregister()" #registerForm="ngForm">
+                <div class="alert alert-warning" *ngIf="registerForm.dirty"> Enter valid values ! </div>
+                <div class="form-group">
+                    <label for="EmailaddressInput">Email address</label>
+                    <input type="email" [(ngModel)]="userInput.email" class="form-control" id="EmailaddressInput"
+                        placeholder="someone@example.com" name="email" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="usernameInput">UserName</label>
+                    <input type="email" [(ngModel)]="userInput.username" class="form-control" id="usernameInput"
+                        placeholder="UserName" name="username" required="required" minlength="5">
+                </div>
+                <div class="form-group">
+                    <label for="passwordInput">Password </label>
+                    <input type="password" [(ngModel)]="userInput.password" class="form-control" id="passwordInput"
+                        placeholder="password" name="password" required="required" minlength="5">
+                </div>
+                <div class="form-group">
+                    <label for="rtypePasswordInput">Retype password</label>
+                    <input type="password" [(ngModel)]="userInput.retypepassword" class="form-control"
+                        id="rtypePasswordInput" placeholder="retype password" name="retypepassword" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="regionSelect">Select User Region</label>
+                    <select [(ngModel)]="userInput.region" class="form-control" id="regionSelect" name="regionSelect"
+                        required="required">
+                        <option value='190'>190</option>
+                        <option value='210'>210</option>
+                        <option value='230'>230</option>
+                        <option value='500'>500</option>
+                        <option value='ALL'>ALL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"> Register</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>

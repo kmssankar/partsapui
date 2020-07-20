@@ -1,0 +1,20 @@
+<div class="row">  
+    <div class="col-12">
+        <div class="container">
+            <nav class="navbar navbar-light  navbar-expand-lg" style="background-color: #e3f2fd;">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" routerLink="/home/default">Parts Analytics</a>
+                    <a class="nav-item nav-link" routerLink="/home/default">Home</a>
+                    <a class="nav-item nav-link" routerLink="/reports">Reports</a>
+                    <a class="nav-item nav-link" routerLink="/search">Search</a>
+                    <a class="nav-item nav-link" routerLink="/register">Register</a>
+                </div>
+                    <div class="navbar-nav navbar-collapse justify-content-end"> 
+                    <a *ngIf="!defaultAuthService.isUserLoggedin()" class="nav-item nav-link" routerLink="/login">Login</a>
+                    <a *ngIf="defaultAuthService.isUserLoggedin()" class="nav-item nav-link" routerLink="/logout">Logout</a>
+                </div>
+            </nav>
+        </div>
+        <br>
+    </div> 
+</div>

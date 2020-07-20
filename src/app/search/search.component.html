@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <form>
+            <div class="row">
+                <div class="col-2">
+                    <div class="form-row align-items-center">
+                        <label class="mr-sm-2" for="seriesId">Series</label>
+                        <select class="custom-select mr-sm-2" id="seriesId" (change)="getModelyrs($event.target.value)"
+                            name="seriesSelect">
+                            <option value="0"> </option>
+                            <option *ngFor="let series of serieslist" [ngValue]="series">
+                                {{series}} </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-row align-items-center">
+                        <label class="mr-sm-2" for="mdlyrId">ModelYr</label>
+                        <select class="custom-select mr-sm-2" id="mdlyrId" (change)="getModelCd($event.target.value)"
+                            name="mdlyrSelect">
+                            <option value="0"> </option>
+                            <option *ngFor="let mdlyr of mdlyrlist" [ngValue]="mdlyr">
+                                {{mdlyr}} </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-row align-items-center">
+                        <label class="mr-sm-2" for="mdlId">Model</label>
+                        <select class="custom-select mr-sm-2" id="mdlId" (change)="getAccyCd($event.target.value)"
+                            name="mdlSelect">
+                            <option value="0"> </option>
+                            <option *ngFor="let mdlcd of mdlcdlist" [ngValue]="mdlcd">
+                                {{mdlcd}} </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-row align-items-center">
+                        <label class="mr-sm-2" for="accyId">Accy codes</label>
+                        <select class="custom-select mr-sm-2" id="accyId" (change)="saveAccyCd($event.target.value)"
+                            name="accySelect" multiple>
+                            <option value="0"> </option>
+                            <option *ngFor="let accy of accycdlist" [ngValue]="accy.accycd">
+                                {{accy.accydesc}} </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="btn btn-primary" (click)="generateReport()"> Gen Report </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-2"></div>
+</div>>
