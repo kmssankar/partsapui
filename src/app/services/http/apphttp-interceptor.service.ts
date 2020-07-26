@@ -1,5 +1,6 @@
+import { DefaultAuthService } from './../default-auth.service';
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,18 +10,19 @@ import { Observable } from 'rxjs';
 //by returning next.handle(requesttoIntercept);
 export class ApphttpInterceptorService implements HttpInterceptor {
 
-  constructor() { }
+  constructor(private defaultAuthService:DefaultAuthService) { }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if(this.defaultAuthService.isUserLoggedin()){
+      console.log("intercepting HTTP")
     let  requesttoIntercept = req.clone({setHeaders :
-      { Authorization : this.createbasicAuthString()}})
+      { Authorization : this.defaultAuthService.getbasicAuthfromstorage()}})
     return next.handle(requesttoIntercept);
+    }
+    else{
+      console.log("Not intercepting HTTP");
+      return next.handle(req);
+    }
   }
-
-  createbasicAuthString(){
-    let usename='admin'
-    let password='adminpass'
-    let baseAuth =  'Basic ' + window.btoa(usename +':'+ password)
-    return baseAuth
-  }
-
 }
+

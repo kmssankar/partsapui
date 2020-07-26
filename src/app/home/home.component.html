@@ -1,8 +1,36 @@
 <div class="row">
-    <div class="col-4"></div>
-    <div class="col-4">
-        <p> welcome &nbsp; {{user}}</p>
+    <div class="col-1"></div>
+    <div class="col-5">
+        <span> High volume vehicle and accy sales</span>
+        <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorScheme" [results]="highmodelAccySales" [gradient]="gradient"
+            [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical-2d>
     </div>
-
-    <div class="col-4"></div>
+    <div class="col-5">
+        <span> Low volume vehicle and accy sales</span>
+        <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorScheme" [results]="lowModelAccySales" [gradient]="gradient"
+            [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical-2d>
+    </div>
+    <div class="col-1"></div>
+</div>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-5">
+        <span> Dip accy sales</span>
+        <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorScheme" [results]="dipAccySales" [gradient]="gradient"
+            [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical-2d>
+    </div>
+    <div class="col-5">
+        <span> Past 5 Year sale</span>
+        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [legend]="legend" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel" [timeline]="timeline" [results]="pastFiveYear">
+        </ngx-charts-line-chart>
+    </div>
+    <div class="col-1"></div>
 </div>

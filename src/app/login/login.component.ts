@@ -1,4 +1,5 @@
-import { DefaultAuthService } from './../services/default-auth.service';
+import { pipe } from 'rxjs';
+import { DefaultAuthService, userDet } from './../services/default-auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -22,18 +23,30 @@ export class LoginComponent implements OnInit {
 
 
   performLogin() {
-    //console.log(this.username + " pass " + this.password)
-    // console.log(this.isUserLoggedin())
-    if (this.defaultAuthService.checkAuthentication(this.username, this.password)) {
-      this.invalidLogin = false;
-      sessionStorage.setItem("authenticatedUser", 'Admin');
-      this.router.navigate(['/home/' + 'Admin'])
-    } else {
-      this.invalidLogin = true;
-    }
-    //console.log(this.isUserLoggedin())
+    this.defaultAuthService.logoutUser();
+    this.defaultAuthService.executeGetuserdetaftAuth(this.username, this.password).subscribe(
+      resp => 
+        this.executesucccessfulAuth(resp,this.username, this.password),
+      err => 
+        this.executefailureauth(err,this.username, this.password)
+    )
   }
-
-
+  executesucccessfulAuth( response:userDet,username:string, password:string){
+    
+    console.log("successful resp")
+    sessionStorage.setItem("authenticatedUser", username)
+    sessionStorage.setItem("basicAuthstr", this.createbasicAuth(username, password))
+    sessionStorage.setItem("userrole", response.authority)
+    sessionStorage.setItem("userArea", response.userArea)  
+    this.invalidLogin = false;
+    this.router.navigate(['/home/' + username])
+  }
+  executefailureauth( response:userDet,username:string, password:string){
+    this.invalidLogin= false;
+  }
+  createbasicAuth(username: string, password: string) {
+    let baseAuth = 'Basic ' + window.btoa(username + ':' + password)
+    return baseAuth
+  }
 }
 

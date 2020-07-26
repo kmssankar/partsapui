@@ -1,37 +1,73 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { pipe } from 'rxjs';
 
+export class userDet {
+  constructor(public userName: string, public authority: string, public userArea: string) { }
+  public getUserName() {
+    return this.userName;
+  }
+  public getUserrole() {
+    return this.authority;
+  }
+  public getuserArea() {
+    return this.userArea;
+  }
+}
 //service will have @Injectable by default 
 @Injectable({
   providedIn: 'root'
 })
 export class DefaultAuthService {
 
-  constructor() { }
+  userDetail:userDet;
+  successfulLogin : boolean;
+  constructor(private httpClient: HttpClient) { }
 
-  checkAuthentication(username:string,password:string){
-    //console.log(this.username + " pass " + this.password)
-    if ((username === 'admin') && (password ==='test')){
-      let userDetail = new userDet('admin','ADMIN',true);
-      //console.log('before setting sesion ' ,userDetail.getUserName())
-      sessionStorage.setItem("authenticatedUser", userDetail.getUserName() );
-      return true;
-    }else{
-      return false;
-    }
+
+  executeGetuserdetaftAuth(username: string, password: string) {
+
+    return this.httpClient.get<userDet>(`http://localhost:8080/partsuserdetails/${username}`, this.createHeaderwithBasicAuth(username, password))
   }
 
-  isUserLoggedin(){
-    let userName  = sessionStorage.getItem("authenticatedUser")
-    return !(userName===null);
+ 
+  getusernamefromSession(){
+    return sessionStorage.getItem("authenticatedUser");
   }
 
-  logoutUser(){
+  
+
+  isUserLoggedin() {
+    let userName = sessionStorage.getItem("authenticatedUser")
+    return !(userName === null);
+  }
+
+  logoutUser() {
     sessionStorage.removeItem("authenticatedUser")
+    sessionStorage.removeItem("basicAuthstr")
+    sessionStorage.removeItem("userrole")
+    sessionStorage.removeItem("userArea")
+  }
+
+  getbasicAuthfromstorage() {
+    let basicAuthstr = sessionStorage.getItem("basicAuthstr");
+    return basicAuthstr;
+  }
+
+  createbasicAuth(username: string, password: string) {
+    let baseAuth = 'Basic ' + window.btoa(username + ':' + password)
+    return baseAuth
+  }
+
+  createHeaderwithBasicAuth(username: string, password: string) {
+      let httpOptions = {
+      headers: new HttpHeaders(
+        {
+          'Authorization': this.createbasicAuth(username, password),
+        }
+      )
+    };
+    return httpOptions;
   }
 }
-class userDet {
-  constructor(private name:string,private role:string, private authenticated:boolean) {}
-  getUserName(){
-      return this.name;
-  }
-}
+
