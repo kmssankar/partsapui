@@ -9,6 +9,10 @@ export class AccyDet{
   constructor(accycd:string , accydesc:string){};
 }
 
+export class report{
+  constructor(name:string , value:number){}
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,6 +37,10 @@ export class SearchdataService {
     return this.http.get<AccyDet[]>(`http://localhost:8080/accycodes/${series}/${mdlyr}/${mdlcd}`)
   }
 
+  executeGetAccySalesService(series:string,mdlyr:string,mdlcd:string,accycds:string[]){
+    return this.http.get<report[]>(`http://localhost:8080/accysalesrep/${series}/${mdlyr}/${mdlcd}/${accycds}`)
+  }
+
   //Basic should be used with space in the starting as basic Aut
   createbasicAuthHeader(){
     let usename='admin'
@@ -46,4 +54,5 @@ export class SearchdataService {
     return new HttpHeaders({Authorization: basicAuth})
   }
 }
+
 

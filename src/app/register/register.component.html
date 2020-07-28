@@ -2,10 +2,9 @@
     <div class="row">
         <div class="col-4"></div>
         <div class="col-4">
-            <div class="alert alert-primary" *ngIf ="regsuccess"> Successfully registerd</div>
-            <div class="alert alert-primary" *ngIf ="regfailure"> Registration failed <a {{errorMsg}}></a></div>
+            <div class="alert alert-success" *ngIf ="regsuccess"> Successfully registerd</div>
+            <div class="alert alert-error" *ngIf ="regfailure"> Registration failed <small [(ngModel)]="errorMsg" ></small></div>
             <form (ngSubmit)="!registerForm.invalid && doregister()" #registerForm="ngForm">
-                <!-- <div class="alert alert-warning" *ngIf="registerForm.dirty"> Enter valid values ! </div> -->
                 <div class="form-group">
                     <label for="EmailaddressInput">Email address</label>
                     <input type="email" [(ngModel)]="userInput.email" class="form-control" id="EmailaddressInput"

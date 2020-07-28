@@ -19,9 +19,28 @@ export class SearchComponent implements OnInit {
   mdlcdlist: string[] = []
   accycdlist: AccyDet[] = []
   accyselList: string[] = []
+  sales:any[] = []
+  Accycodessel:string[]=[]
+  //NGX Chart Data
+  resultsFound:boolean
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Accessory ';
+  showYAxisLabel = true;
+  yAxisLabel = 'Sales Volume';
+  view: any[] = [ 800,600];
+
+  colorScheme = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
 
 
   ngOnInit(): void {
+    this.resultsFound = false 
     this.getseriesDatafromService();
 
   }
@@ -48,6 +67,16 @@ export class SearchComponent implements OnInit {
 
     this.searchdataService.executeGetAccyDetDataService(this.seriesSelected, this.mdlyrSelected, this.mdlSelected).subscribe(
       Response => this.handleSuccessfulAccyServiceResponse(Response))
+  }
+
+  getreportDatafromService(){
+    this.searchdataService.executeGetAccySalesService(this.seriesSelected, this.mdlyrSelected, this.mdlSelected,this.Accycodessel).subscribe(
+      response => this.handleSuccessfulreportServiceResponse(response)
+    )
+  }
+
+  handleSuccessfulreportServiceResponse(Response) {
+    this.sales = Response;
   }
 
   handleSuccessfulSeriesServiceResponse(Response) {
@@ -100,6 +129,8 @@ export class SearchComponent implements OnInit {
 
   generateReport() {
     console.log(`generate report is called with ${this.seriesSelected} ${this.mdlyrSelected} ${this.mdlSelected}
-      ${this.accyselList}`)
+      ${this.Accycodessel}`)      
+      this.getreportDatafromService()
+      this.resultsFound = true 
   }
 }

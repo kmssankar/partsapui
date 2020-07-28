@@ -39,11 +39,11 @@
                 <div class="col-2">
                     <div class="form-row align-items-center">
                         <label class="mr-sm-2" for="accyId">Accy codes</label>
-                        <select class="custom-select mr-sm-2" id="accyId" (change)="saveAccyCd($event.target.value)"
-                            name="accySelect" multiple>
+                        <select class="custom-select mr-sm-2" [(ngModel)]="Accycodessel" id="accyId"
+                            (change)="saveAccyCd($event.target.value)" name="accySelect" multiple>
                             <option value="0"> </option>
                             <option *ngFor="let accy of accycdlist" [ngValue]="accy.accycd">
-                                {{accy.accydesc}} </option>
+                                {{accy.accycd}} </option>
                         </select>
                     </div>
                 </div>
@@ -53,5 +53,16 @@
             </div>
         </form>
     </div>
+</div>
+<div class="row">
     <div class="col-2"></div>
-</div>>
+    <div class="container" *ngIf="resultsFound">
+        <div class="col-8">
+            <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="sales" [gradient]="gradient"
+                [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                (select)="onSelect($event)">
+            </ngx-charts-bar-vertical>
+        <div class="col-2"></div>
+    </div>
+</div>

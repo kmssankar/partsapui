@@ -1,6 +1,7 @@
 import { DefaultAuthService } from './../services/default-auth.service';
 import { RegisterService, reguser } from './../services/register.service';
 import { Component, OnInit } from '@angular/core';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -20,11 +21,15 @@ export class RegisterComponent implements OnInit {
   }
 
   doregister() {
+    this.regsuccess = false
+    this.regfailure = false
     this.defaultAuthService.logoutUser();
-    console.log(this.userInput.email + ' ' + this.userInput.username)
+    console.log(this.userInput.email + ' ' + this.userInput.userName)
     this.registerService.performRegisterUser(this.userInput).subscribe(
       resp => { this.regsuccess = true, this.errorMsg = resp.toString() },
-      err => { this.regfailure = false,this.errorMsg = err.toString() }
+      (error:HttpErrorResponse) => { this.regfailure = true;
+                console.log(error.message);
+                this.errorMsg = "Registration Failed" }
     );
   }
 }

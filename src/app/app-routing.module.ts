@@ -12,9 +12,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 //order of the routes is important always add ** at last as it will match all urls
 const routes: Routes = [
-  { path: 'home/:name', component: HomeComponent },
+  { path: 'home/:name', component: HomeComponent ,canActivate:[RoutegaurdService]},
   { path: 'login', component: LoginComponent },
-  { path: 'search', component: SearchComponent },
+  { path: 'search', component: SearchComponent ,canActivate:[RoutegaurdService]},
   { path: 'reports', component: ReportsComponent,canActivate:[RoutegaurdService] },
   { path: 'logout', component: LogoutComponent },
   { path:'register',component: RegisterComponent},
